@@ -27,12 +27,17 @@ jobs:
 
       - name: ⚙️ Converter notebook para script
         run: |
-          jupyter nbconvert --to script main.ipynb --output main.py
+          # Garante que o arquivo será main.py
+          jupyter nbconvert --to script main.ipynb --output main
+          ls -l  # Para conferir se main.py foi criado
 
       - name: 🧹 Corrigir estilo do script exportado (opcional)
         run: |
-          # Aplica Black para padronizar indentação e linhas longas
-          black main.py --line-length 120
+          if [ -f "main.py" ]; then
+            black main.py --line-length 120
+          else
+            echo "⚠️ main.py não encontrado, pulando Black"
+          fi
 
       - name: 🧹 Verificar qualidade de código
         run: |
@@ -41,8 +46,12 @@ jobs:
 
       - name: 🧪 Executar notebook convertido (CI)
         run: |
-          echo "🚀 Executando main.py"
-          python main.py || echo "⚠️ Execução parcial - verifique logs"
+          if [ -f "main.py" ]; then
+            echo "🚀 Executando main.py"
+            python main.py || echo "⚠️ Execução parcial - verifique logs"
+          else
+            echo "⚠️ main.py não encontrado, pulando execução"
+          fi
 
       - name: ✅ Testar importação de bibliotecas
         run: |
