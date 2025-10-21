@@ -54,7 +54,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: best_model
-          path: models/models/best_model.pkl
+          path: models/best_model.pkl
 
       - name: 🏁 Finalização
         if: success()
