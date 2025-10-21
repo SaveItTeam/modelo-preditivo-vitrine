@@ -42,10 +42,10 @@ jobs:
       - name: 💾 Verificar e salvar melhor modelo (CD)
         if: success()
         run: |
-          if [ -f "best_model.pkl" ]; then
+          if [ -f "models/best_model.pkl" ]; then
             echo "🎯 Modelo encontrado!"
           else
-            echo "⚠️ Nenhum arquivo 'best_model.pkl' encontrado, verifique o código."
+            echo "⚠️ Nenhum arquivo 'models/best_model.pkl' encontrado, verifique o código."
             exit 1
           fi
 
@@ -54,7 +54,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: best_model
-          path: best_model.pkl
+          path: models/models/best_model.pkl
 
       - name: 🏁 Finalização
         if: success()
