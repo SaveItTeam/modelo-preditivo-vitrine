@@ -30,7 +30,7 @@ jobs:
           # Roda flake8 apenas nos arquivos .py "reais" do repo
           flake8 --max-line-length=120 --exclude=venv,__pycache__,*.ipynb_checkpoints .
 
-      - name: 🧪 Executar notebook diretamente (CI)
+      - name: 🧪 Executando notebook
         run: |
           echo "🚀 Executando notebook main.ipynb"
           jupyter nbconvert --to notebook --execute main.ipynb --output executed_main.ipynb
@@ -39,7 +39,7 @@ jobs:
         run: |
           python -c "import pandas, numpy, sklearn; print('Bibliotecas OK ✅')"
 
-      - name: 💾 Verificar e salvar melhor modelo (CD)
+      - name: 💾 Salvando o melhor modelo
         if: success()
         run: |
           if [ -f "models/best_model.pkl" ]; then
